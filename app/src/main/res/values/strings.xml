@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">VideoMeeting</string>
+    <string name="email">Email</string>
+    <string name="you_example_com">you@example.com</string>
+    <string name="password">password</string>
+    <string name="Password">Password</string>
+    <string name="u2022_u2022_u2022_u2022_u2022_u2022">• • • • • •</string>
+    <string name="sign_in_to_your_account">Sign in to your Account</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_new_account">Create new Account</string>
+    <string name="create_account">create_new_account?</string>
+    <string name="createaccount">Create new Account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_out">Sign Out</string>
+</resources>
