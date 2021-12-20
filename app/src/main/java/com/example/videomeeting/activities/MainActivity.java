@@ -2,15 +2,19 @@ package com.example.videomeeting.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.videomeeting.R;
+import com.example.videomeeting.adapter.UserAdapter;
+import com.example.videomeeting.models.User;
 import com.example.videomeeting.utilities.Constants;
 import com.example.videomeeting.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,16 +24,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
-
+    private List<User> users;
+    private UserAdapter userAdapter;
+    private TextView textErrorMessage;
+    private ProgressBar usersProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,53 @@ public class MainActivity extends AppCompatActivity {
                 sendFCMTokentoDatabase(newToken);
             }
         });
+
+        RecyclerView usersRecyclerView = findViewById(R.id.userRecyclerView);
+        textErrorMessage = findViewById(R.id.textErrorMessage);
+        usersProgressBar = findViewById(R.id.userProgressBar);
+
+        users = new ArrayList<>();
+        userAdapter = new UserAdapter(users);
+        usersRecyclerView.setAdapter(userAdapter);
+
+        getUsers();
+    }
+
+    private void getUsers(){
+        usersProgressBar.setVisibility(View.VISIBLE);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database.collection(Constants.Key_Collection_Users)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        usersProgressBar.setVisibility(View.GONE);
+                        String myUserId = preferenceManager.getString(Constants.Key_User_Id);
+                        if(task.isSuccessful() && task.getResult() != null){
+                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                if(myUserId.equals(documentSnapshot.getId())){
+                                    continue;
+                                }
+                                User user = new User();
+                                user.firstName = documentSnapshot.getString(Constants.Key_First_Name);
+                                user.lastName = documentSnapshot.getString(Constants.Key_Last_Name);
+                                user.email = documentSnapshot.getString(Constants.Key_Email);
+                                user.token = documentSnapshot.getString(Constants.Key_FCM_Token);
+                                users.add(user);
+                            }
+                            if(users.size() > 0){
+                                userAdapter.notifyDataSetChanged();
+                            }else{
+                                textErrorMessage.setText(String.format("%s", "No users available"));
+                                textErrorMessage.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else{
+                            textErrorMessage.setText(String.format("%s", "No users available"));
+                            textErrorMessage.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
     }
 
     private void sendFCMTokentoDatabase(String token){
