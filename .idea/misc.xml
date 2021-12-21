@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/drawable/background_accept_invitation.xml" value="0.164" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/drawable/background_meeting_invitation.xml" value="0.176" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/drawable/background_meeting_invitation_user_icon.xml" value="0.164" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/drawable/background_reject_invitation.xml" value="0.164" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/drawable/background_user_icon.xml" value="0.1465" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/layout/activity_incoming_invitation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/layout/activity_outgoing_invitation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/Second_Video_Calling_App/app/src/main/res/layout/item_container_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/VideoMeeting/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/VideoMeeting/app/src/main/res/layout/activity_sign_in.xml" value="0.25416666666666665" />
