@@ -7,7 +7,7 @@ public class ApiClient {
 
     private static Retrofit retorfit = null;
     
-    private static Retrofit getClient(){
+    public static Retrofit getClient(){
         if(retorfit == null){
             retorfit = new Retrofit.Builder()
                     .baseUrl("https://fcm.googleapis.com/fcm/")
